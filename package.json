@@ -1,0 +1,35 @@
+{
+  "name": "space-my-guy",
+  "version": "1.0.0",
+  "description": "A yocto-universe simulator built using NextJS and utilising React (might have guessed that one) and HTML5 Canvas",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [
+    "HTML5",
+    "Canvas",
+    "React",
+    "NextJS",
+    "Space"
+  ],
+  "author": "Kye Smith",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^9.3.4",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-react": "^7.0.0",
+    "@types/node": "^13.11.1",
+    "@types/react": "^16.9.34",
+    "@types/styled-components": "^5.0.1",
+    "babel-plugin-styled-components": "^1.10.7",
+    "typescript": "^3.8.3"
+  }
+}
