@@ -1,7 +1,7 @@
 import * as React from 'react';
-import styled, { keyframes } from 'styled-components';
 import Head from 'next/head';
-import { Title, About, BlastOff } from 'src/components/HomePage';
+import { Title, About, RenderPageLink } from 'src/styled-components/HomePage';
+import { BIO } from 'src/common/badGlobalConstants';
 
 const Home: React.FC = () => {
   return (
@@ -18,9 +18,9 @@ const Home: React.FC = () => {
         WEB SPACE ON THE INTER<s>WEB</s>NET
       </Title>
 
-      <About></About>
+      <About>{BIO}</About>
 
-      <BlastOff href="/theFinalFrontier">To infinity... and beyond!</BlastOff>
+      <RenderPageLink href="/render">Do the thing</RenderPageLink>
     </>
   );
 };
