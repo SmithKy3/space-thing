@@ -13,11 +13,21 @@ export const HomeButton = styled.i`
   }
 `;
 
+export const Background = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -100;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+`;
+
 export const StyledCanvas = styled.canvas`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background: transparent;
 `;

@@ -1,10 +1,15 @@
 import * as React from 'react';
-import styled, { css } from 'styled-components';
-import Head from 'next/head';
-import { HomeButton, StyledCanvas } from 'src/styled-components/RenderPage';
+import { WarpSpeed, WarpSpeedObject } from 'warpspeed';
+import {
+  HomeButton,
+  Background,
+  StyledCanvas,
+} from 'src/styled-components/RenderPage';
 import FrameService from 'src/engine/FrameService';
 
 class Render extends React.Component<{}, {}> {
+  private background: WarpSpeedObject;
+  private backgroundRef: React.RefObject<HTMLDivElement>;
   private canvasRef: React.RefObject<HTMLCanvasElement>;
   private frameService: FrameService;
 
@@ -27,10 +32,15 @@ class Render extends React.Component<{}, {}> {
 
   public constructor(props: {}) {
     super(props);
+    this.backgroundRef = React.createRef<HTMLDivElement>();
     this.canvasRef = React.createRef<HTMLCanvasElement>();
   }
 
   public componentDidMount(): void {
+    this.background = WarpSpeed();
+    this.background.mountCanvasTo(this.backgroundRef.current);
+    this.background.render();
+
     this.sizeCanvas();
     window.addEventListener('resize', this.onWindowResize);
 
@@ -47,6 +57,7 @@ class Render extends React.Component<{}, {}> {
   public render() {
     return (
       <>
+        <Background ref={this.backgroundRef} />
         <a href="/">
           <HomeButton className="material-icons">home</HomeButton>
         </a>

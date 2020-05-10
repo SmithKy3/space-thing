@@ -18,10 +18,12 @@
   "author": "Kye Smith",
   "license": "ISC",
   "dependencies": {
+    "lazy_global": "^2.0.0",
     "next": "^9.3.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "styled-components": "^5.1.0"
+    "styled-components": "^5.1.0",
+    "warpspeed": "^1.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
