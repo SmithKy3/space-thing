@@ -1,5 +1,3 @@
-import { getRandomNumber } from 'src/common/badGlobalConstants';
-import Vec3 from 'src/engine/Vec3';
 import GenericBody from './BaseBody';
 import Star from './Star';
 import Satellite from './Satellite';

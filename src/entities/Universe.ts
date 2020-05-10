@@ -1,4 +1,3 @@
-import { getRandomNumber } from 'src/common/badGlobalConstants';
 import GenericBody from './BaseBody';
 import SolarSystem from './SolarSystem';
 import { IInitialSystemData } from './types';

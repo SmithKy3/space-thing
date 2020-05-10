@@ -1,6 +1,6 @@
-import { colors } from 'src/common/badGlobalConstants';
-import Orbit from 'src/engine/Orbit';
-import Vec3 from 'src/engine/Vec3';
+import { colors } from 'common/badGlobalConstants';
+import Orbit from 'engine/Orbit';
+import Vec3 from 'engine/Vec3';
 
 type allowedColor = typeof colors[keyof typeof colors];
 

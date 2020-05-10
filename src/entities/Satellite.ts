@@ -1,10 +1,8 @@
-import SphericalCoordinate from 'src/engine/SphericalCoordinate';
-import { getRandomNumber, colors } from 'src/common/badGlobalConstants';
-import Star from './Star';
+import { colors } from 'common/badGlobalConstants';
 import GenericBody from './BaseBody';
+import Star from './Star';
 import { IInitialSatelliteData } from './types';
-import Vec3 from 'src/engine/Vec3';
-import Orbit from 'src/engine/Orbit';
+import Orbit from 'engine/Orbit';
 
 const ALLOWED_SAT_COLORS = [colors.retroGreen, colors.retroRed, colors.skyBlue];
 

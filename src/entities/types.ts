@@ -1,5 +1,4 @@
-import Star from './Star';
-import Vec3 from 'src/engine/Vec3';
+import Vec3 from 'engine/Vec3';
 
 export interface IInitialStarData {
   radius: number;

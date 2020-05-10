@@ -1,9 +1,7 @@
-import { getRandomNumber, colors } from 'src/common/badGlobalConstants';
-import Vec3 from 'src/engine/Vec3';
-import SphericalCoordinate from 'src/engine/SphericalCoordinate';
+import { colors } from 'common/badGlobalConstants';
 import GenericBody from './BaseBody';
 import { IInitialStarData } from './types';
-import Orbit from 'src/engine/Orbit';
+import Orbit from 'engine/Orbit';
 
 export default class Star extends GenericBody {
   public constructor(params: IInitialStarData) {

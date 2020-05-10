@@ -16,7 +16,19 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "~": ["src/"],
+      "~/*": ["src/*"],
+      "common": ["src/common"],
+      "common/*": ["src/common/*"],
+      "components": ["src/components"],
+      "components/*": ["src/components/*"],
+      "engine": ["src/engine"],
+      "engine/*": ["src/engine/*"],
+      "entities": ["src/entities"],
+      "entities/*": ["src/entities/*"]
+    }
   },
   "include": ["next-env.d.ts", "./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["./idea, ./node_modules"]
