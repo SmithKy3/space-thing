@@ -1,19 +1,22 @@
-import GenericBody from './BaseBody';
-import Star from './Star';
-import Satellite from './Satellite';
-import { IInitialSystemData } from './types';
+import GenericBody from './GenericBody';
+import Star, { StarData } from './Star';
+import Satellite, { SatData } from './Satellite';
+
+export interface SystemData {
+  starData: StarData;
+  satData: SatData[];
+}
 
 export default class SolarSystem {
   private star: Star;
   private satellites: Satellite[];
 
-  public constructor(params: IInitialSystemData) {
-    const { starData, satellitesData } = params;
+  public constructor({ starData, satData }: SystemData) {
     this.star = new Star(starData);
     this.satellites = [];
 
-    satellitesData.forEach((satelliteDatum) =>
-      this.satellites.push(new Satellite(this.star, satelliteDatum))
+    satData.forEach((satDatum) =>
+      this.satellites.push(new Satellite(this.star, satDatum))
     );
   }
 

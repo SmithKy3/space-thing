@@ -10,16 +10,16 @@ body {
   height: 100vh;
 }
 
-body {
+html {
   --retroGreen: #93ffed;
   --retroRed: #ff5c67;
   background-color: black;
-  font-size: 1.5vh;
+  font-size: 1.5vw;
 }
 
 @media only screen and (max-width: 900px) {
-  body {
-    font-size: 2.5vh;
+  html {
+    font-size: 4vw;
   }
 }
 

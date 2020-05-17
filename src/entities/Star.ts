@@ -1,15 +1,27 @@
-import { colors } from 'common/badGlobalConstants';
-import GenericBody from './BaseBody';
-import { IInitialStarData } from './types';
+import { colors } from '~/common/';
 import Orbit from 'engine/Orbit';
+import Vec3 from 'engine/Vec3';
+import GenericBody from './GenericBody';
+
+export interface StarData {
+  radius: number;
+  velocity: number;
+  orbitalRadius: number;
+  orbitCenter: Vec3;
+  orbitAxis: Vec3;
+}
 
 export default class Star extends GenericBody {
-  public constructor(params: IInitialStarData) {
+  public constructor({
+    radius,
+    velocity,
+    orbitalRadius,
+    orbitCenter,
+    orbitAxis,
+  }: StarData) {
     super();
 
     this.color = colors.yellow;
-
-    const { radius, velocity, orbitalRadius, orbitCenter, orbitAxis } = params;
 
     this.radius = radius;
     this.velocity = velocity;

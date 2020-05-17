@@ -1,11 +1,10 @@
+import { getRandomNumber } from '~/common';
 import Vec3 from './Vec3';
-import SphericalCoordinate from './SphericalCoordinate';
-import { getRandomNumber } from 'src/common/badGlobalConstants';
 
 export default class Orbit {
-  private orbitOrigin: Vec3; // A point which is the center of the orbit
-  private orbitAxis: Vec3; // A vector representing the axis that the body rotates around in its orbit
-  private currentPosition: Vec3; // The bodies position relative to the origin
+  private orbitOrigin: Vec3; // The center of the orbit
+  private orbitAxis: Vec3; // A vector representing the axis that the orbit is rotating around
+  private currentPosition: Vec3; // The current position relative to the page origin
 
   public constructor(
     orbitalRadius: number,

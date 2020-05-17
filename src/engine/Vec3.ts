@@ -1,3 +1,5 @@
+import SphericalCoordinate from './SphericalCoordinate';
+
 // A three dimensional vector class, to make the calculation of orbit locations, etc. much easier.
 export default class Vec3 {
   /* x is left to right on the screen, z is up top to bottom and y is in/out of the screen */
@@ -119,5 +121,14 @@ export default class Vec3 {
   }
   public static getZAxis(): Vec3 {
     return new Vec3(0, 0, 1);
+  }
+
+  public toCartesian(): SphericalCoordinate {
+    const { _x, _y, _z } = this;
+    const r = Math.sqrt(_x ** 2 + _y ** 2 + _z ** 2);
+    const theta = Math.acos(_z / r);
+    const phi = Math.atan(_y / _x);
+
+    return new SphericalCoordinate(r, theta, phi);
   }
 }

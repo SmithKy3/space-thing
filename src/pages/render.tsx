@@ -2,12 +2,16 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { WarpSpeed, WarpSpeedObject } from 'warpspeed';
 import FrameService from 'engine/FrameService';
+import { RightMenu } from 'components/RightMenu';
+import { getInitialSystemData } from '~/Startup';
+import Star from '~/entities/Star';
+import Satellite from '~/entities/Satellite';
 
 const HomeButton = styled.i`
   position: fixed;
   z-index: 10;
   top: 5vh;
-  left: 5vw;
+  left: 1vw;
   font-size: 2rem;
   color: white;
 
@@ -35,14 +39,14 @@ const StyledCanvas = styled.canvas`
   background: transparent;
 `;
 
-class Render extends React.Component<{}, {}> {
-  private background: WarpSpeedObject;
-  private backgroundRef: React.RefObject<HTMLDivElement>;
-  private canvasRef: React.RefObject<HTMLCanvasElement>;
-  private frameService: FrameService;
+const Render: React.FC<{}> = () => {
+  let background: WarpSpeedObject;
+  let backgroundRef = React.createRef<HTMLDivElement>();
+  let canvasRef = React.createRef<HTMLCanvasElement>();
+  let frameService: FrameService;
 
-  private sizeCanvas(): void {
-    const canvas = this.canvasRef.current;
+  const sizeCanvas = (): void => {
+    const canvas = canvasRef.current;
 
     if (!canvas) {
       return;
@@ -51,49 +55,43 @@ class Render extends React.Component<{}, {}> {
     const { clientWidth, clientHeight } = canvas;
     canvas.width = clientWidth;
     canvas.height = clientHeight;
-  }
-
-  private onWindowResize = (): void => {
-    this.sizeCanvas();
-    this.frameService.onWindowResize();
   };
 
-  public constructor(props: {}) {
-    super(props);
-    this.backgroundRef = React.createRef<HTMLDivElement>();
-    this.canvasRef = React.createRef<HTMLCanvasElement>();
-  }
+  const onWindowResize = (): void => {
+    sizeCanvas();
+    frameService.onWindowResize();
+  };
 
-  public componentDidMount(): void {
-    this.background = WarpSpeed();
-    this.background.mountCanvasTo(this.backgroundRef.current);
-    this.background.render();
+  React.useEffect(() => {
+    background = WarpSpeed();
+    background.mountCanvasTo(backgroundRef.current);
+    background.render();
 
-    this.sizeCanvas();
-    window.addEventListener('resize', this.onWindowResize);
+    sizeCanvas();
+    window.addEventListener('resize', onWindowResize);
 
-    this.frameService = new FrameService(
-      this.canvasRef.current.getContext('2d')
-    );
-    this.frameService.startDrawing();
-  }
+    const initial = getInitialSystemData();
+    const star = new Star(initial.starData);
+    const sat = new Satellite(star, initial.satData[0]);
+    frameService = new FrameService(canvasRef.current.getContext('2d'));
+    frameService.addBody(star);
+    frameService.addBody(sat);
+    frameService.startDrawing();
 
-  public componentWillUnmount(): void {
-    window.removeEventListener('resize', this.onWindowResize);
-  }
+    return () => window.removeEventListener('resize', onWindowResize);
+  });
 
-  public render() {
-    return (
-      <>
-        <Background ref={this.backgroundRef} />
-        <a href="/">
-          <HomeButton className="material-icons">home</HomeButton>
-        </a>
+  return (
+    <>
+      <Background ref={backgroundRef} />
+      <a href="/">
+        <HomeButton className="material-icons">home</HomeButton>
+      </a>
 
-        <StyledCanvas ref={this.canvasRef} />
-      </>
-    );
-  }
-}
+      <StyledCanvas ref={canvasRef} />
+      <RightMenu />
+    </>
+  );
+};
 
 export default Render;

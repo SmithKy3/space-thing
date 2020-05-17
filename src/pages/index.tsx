@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Head from 'next/head';
-import { BIO } from 'common/badGlobalConstants';
+import { BIO } from '~/common';
 
 const FadeIn = keyframes`
     0% { opacity: 0; }

@@ -10,7 +10,7 @@ module.exports = {
     };
   },
   webpack(config) {
-    config.resolve.alias['src'] = path.join(__dirname, 'src');
+    config.resolve.alias['~'] = path.join(__dirname, 'src');
     config.resolve.alias['common'] = path.join(__dirname, 'src/common');
     config.resolve.alias['components'] = path.join(__dirname, 'src/components');
     config.resolve.alias['engine'] = path.join(__dirname, 'src/engine');

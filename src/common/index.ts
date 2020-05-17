@@ -9,19 +9,6 @@ export const colors = {
   offWhite: '#ffffe8',
 };
 
-export function getRandomNumber(
-  min: number,
-  max: number,
-  returnRounded = false
-): number {
-  const randomNumber = Math.random() * (max - min) + min;
-  return returnRounded ? Math.round(randomNumber) : randomNumber;
-}
-
-//
-//
-//
-//
 // Special array methods I wish existed and decided to implement here
 declare global {
   interface Array<T> {
@@ -44,3 +31,12 @@ Array.prototype.randomEntry = function () {
   const i = Math.round(Math.random() * (this.length - 1));
   return [...this].shuffle()[i];
 };
+
+export function getRandomNumber(
+  min: number,
+  max: number,
+  returnRounded = false
+): number {
+  const randomNumber = Math.random() * (max - min) + min;
+  return returnRounded ? Math.round(randomNumber) : randomNumber;
+}

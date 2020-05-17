@@ -1,17 +1,23 @@
-import Universe from 'src/entities/Universe';
-import GenericBody from 'src/entities/BaseBody';
-import { getDemo } from './Demo';
+import GenericBody from '~/entities/GenericBody';
 
 export default class FrameService {
-  private continueDrawing = true;
-  private universe: Universe;
-  private drawStack: GenericBody[];
+  private frameId: number;
+  private drawStack = new Array<GenericBody>();
 
-  public constructor(private ctx: CanvasRenderingContext2D) {
-    const universeData = getDemo();
-    this.universe = new Universe(universeData);
+  public constructor(private ctx: CanvasRenderingContext2D) {}
 
-    this.drawStack = this.universe.getAllBodies();
+  public addBody(...bodies: GenericBody[]) {
+    this.drawStack.push(...bodies);
+  }
+
+  public removeBody(id: Symbol) {
+    const i = this.drawStack.findIndex((body) => body.id === id);
+
+    if (!i) {
+      return;
+    }
+
+    this.drawStack.splice(i, 1);
   }
 
   public sortDrawStack() {
@@ -25,22 +31,24 @@ export default class FrameService {
     const { width, height } = ctx.canvas;
 
     const drawFrame = () => {
-      this.universe.updatePositions();
+      this.drawStack.forEach((body) => {
+        body.updatePosition();
+      });
+
       this.sortDrawStack();
       ctx.clearRect(0, 0, width, height);
-      this.drawStack.forEach((body) => body.draw(ctx));
 
-      if (this.continueDrawing) {
-        window.requestAnimationFrame(drawFrame);
-      } else {
-        return;
-      }
+      this.drawStack.forEach((body) => {
+        body.draw(ctx);
+      });
+
+      this.frameId = window.requestAnimationFrame(drawFrame);
     };
 
     drawFrame();
   };
 
-  public stopDrawing(): void {
-    this.continueDrawing = false;
-  }
+  public stopDrawing = (): void => {
+    window.cancelAnimationFrame(this.frameId);
+  };
 }

@@ -1,4 +1,4 @@
-import { colors } from 'common/badGlobalConstants';
+import { colors } from '~/common';
 import Orbit from 'engine/Orbit';
 import Vec3 from 'engine/Vec3';
 
@@ -10,6 +10,11 @@ export default abstract class GenericBody {
   protected velocity: number; // angle in degrees that body moves around its orbit, per frame
   protected orbit: Orbit;
   public center: Vec3; // Bodies curretn absolute position
+  public id: Symbol;
+
+  public constructor() {
+    this.id = Symbol('space-circle');
+  }
 
   // Should use SphericalCoordinate position and velocity to rotate position some amount around orbit
   public abstract updatePosition(): void;

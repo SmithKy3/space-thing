@@ -1,13 +1,9 @@
-import {
-  IInitialSystemData,
-  IInitialStarData,
-  IInitialSatelliteData,
-} from 'src/entities/types';
-import { getRandomNumber } from 'src/common/badGlobalConstants';
-import Vec3 from './Vec3';
-import SphericalCoordinate from './SphericalCoordinate';
+import { getRandomNumber } from '~/common';
+import Vec3 from './engine/Vec3';
+import { SystemData } from './entities/SolarSystem';
+import { StarData } from './entities/Star';
 
-function* orbitalRadiusGenerator(
+export function* orbitalRadiusGenerator(
   min: number,
   max: number
 ): IterableIterator<number> {
@@ -20,12 +16,12 @@ function* orbitalRadiusGenerator(
   }
 }
 
-export const getDemo = (): IInitialSystemData[] => {
+export const getInitialSystemData = (): SystemData => {
   const { clientWidth, clientHeight } = document.body;
   const pageCenter = new Vec3(clientWidth / 2, clientHeight / 2, 0);
   const starRadius = Math.min(clientWidth, clientHeight) / 10;
 
-  const starData: IInitialStarData = {
+  const starData: StarData = {
     radius: starRadius,
     velocity: 0,
     orbitalRadius: 0,
@@ -33,6 +29,22 @@ export const getDemo = (): IInitialSystemData[] => {
     orbitAxis: new Vec3(0, 1, 0),
   };
 
+  const orbitalRadius = Math.min(starRadius * 5, clientWidth / 2);
+  const orbitAxis = new Vec3(0, 10, -2);
+
+  const satData = [
+    {
+      radius: getRandomNumber(starRadius / 8, starRadius / 4),
+      velocity: getRandomNumber(-2, 2),
+      orbitalRadius,
+      orbitAxis,
+    },
+  ];
+
+  return { starData, satData };
+};
+
+/*
   const satelliteRadii = orbitalRadiusGenerator(starRadius, starRadius * 3);
   const satellitesData: IInitialSatelliteData[] = [];
   const orbitAxis = new Vec3(0, 10, -2);
@@ -47,7 +59,4 @@ export const getDemo = (): IInitialSystemData[] => {
 
     satellitesData.push(satDatum);
   }
-
-  const universeData = [{ starData, satellitesData }];
-  return universeData;
-};
+*/
