@@ -111,12 +111,20 @@ const Inspiration = styled(TextArea)`
   float: left;
   width: 40vw;
   margin: 20vh 5vw;
+
+  @media screen and (max-width: 900px) {
+    width: 90vw;
+  }
 `;
 
 const ToDo = styled(TextArea)`
   float: right;
   width: 40vw;
   margin: 20vh 5vw;
+
+  @media screen and (max-width: 900px) {
+    width: 90vw;
+  }
 `;
 
 const Home: React.FC = () => {
