@@ -1,11 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { WarpSpeed, WarpSpeedObject } from 'warpspeed';
+// import { WarpSpeed, WarpSpeedObject } from 'warpspeed';
 import FrameService from 'engine/FrameService';
 import { RightMenu } from 'components/RightMenu';
-import { getInitialSystemData } from '~/Startup';
-import Star from '~/entities/Star';
-import Satellite from '~/entities/Satellite';
 
 const HomeButton = styled.i`
   position: fixed;
@@ -40,7 +37,7 @@ const StyledCanvas = styled.canvas`
 `;
 
 const Render: React.FC<{}> = () => {
-  let background: WarpSpeedObject;
+  // let background: WarpSpeedObject;
   let backgroundRef = React.createRef<HTMLDivElement>();
   let canvasRef = React.createRef<HTMLCanvasElement>();
   let frameService: FrameService;
@@ -63,19 +60,20 @@ const Render: React.FC<{}> = () => {
   };
 
   React.useEffect(() => {
-    background = WarpSpeed();
-    background.mountCanvasTo(backgroundRef.current);
-    background.render();
+    // background = WarpSpeed();
+    // background.mountCanvasTo(backgroundRef.current);
+    // background.render();
+    /* ^^^^^^^^^^^^^^^^^^^
+    I wrote a small NPM package that renders a canvas and runs a star-wars-esque
+    warp speed effect. I still want to use it as a background but I need to look
+    into some performance problems first, currently makes the FPS take a bit of a hit.
+    */
 
     sizeCanvas();
     window.addEventListener('resize', onWindowResize);
 
-    const initial = getInitialSystemData();
-    const star = new Star(initial.starData);
-    const sat = new Satellite(star, initial.satData[0]);
     frameService = new FrameService(canvasRef.current.getContext('2d'));
-    frameService.addBody(star);
-    frameService.addBody(sat);
+    frameService.initDemo();
     frameService.startDrawing();
 
     return () => window.removeEventListener('resize', onWindowResize);

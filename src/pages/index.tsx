@@ -1,16 +1,16 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
 import Head from 'next/head';
-import { BIO } from '~/common';
+import { colors, WELCOME_TEXT, INSPO_TEXT, TODO_LIST } from '~/common';
 
 const FadeIn = keyframes`
     0% { opacity: 0; }
     100% { opacity: 1; }
 `;
-const Title = styled.div`
+const PageTitle = styled.div`
   position: relative;
-  margin: 5vh 15vw;
   width: 70vw;
+  margin: 5vh 0 10vh 15vw;
   text-align: center;
   font-family: Righteous, Times;
   font-size: 1.5rem;
@@ -31,17 +31,33 @@ const Title = styled.div`
   }
 `;
 
-const About = styled.div`
-  margin: 20vh 20vw 0;
-  width: 60vw;
-  height: 30vh;
+const TextArea = styled.div`
   box-sizing: border-box;
   padding: 1rem 2rem;
-  box-shadow: 0 0 2px 1px rgb(255, 255, 255, 0.5);
-  color: rgb(255, 255, 255, 0.75);
-  text-align: center;
+  box-shadow: 0 0 2px 1px rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.75);
+  text-align: let;
   font-size: 1rem;
-  font-family: 'Lobster';
+  font-family: 'DM Mono';
+
+  > h1 {
+    font-size: 2rem;
+    text-decoration: underline;
+  }
+
+  > ol {
+    list-style-position: inside;
+  }
+
+  > a {
+    color: ${colors.retroGreen};
+    text-decoration: italic;
+  }
+`;
+
+const Welcome = styled(TextArea)`
+  width: 60vw;
+  margin: 5vh 20vw;
 `;
 
 const rotatingBorders = keyframes`
@@ -54,12 +70,11 @@ const rotatingBorders = keyframes`
   83.3% { transform: scaleX(0.25) scaleY(0.1); transform-origin: bottom left; }
   91.63% { transform: scaleX(0.01) scaleY(0.6); transform-origin: bottom left; }
 `;
-const RenderPageLink = styled.a`
-  position: fixed;
-  bottom: 5vh;
-  left: 35vw;
+const RenderButton = styled.button`
+  position: relative;
   width: 30vw;
   box-sizing: border-box;
+  margin: 5vh 0 0 35vw;
   padding: 1.5rem 0.5rem;
   text-align: center;
   font-family: Righteous, Times;
@@ -92,24 +107,54 @@ const RenderPageLink = styled.a`
   }
 `;
 
+const Inspiration = styled(TextArea)`
+  float: left;
+  width: 40vw;
+  margin: 20vh 5vw;
+`;
+
+const ToDo = styled(TextArea)`
+  float: right;
+  width: 40vw;
+  margin: 20vh 5vw;
+`;
+
 const Home: React.FC = () => {
   return (
     <>
       <Head>
         <title>Dude, where's my space?</title>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lobster&family=Righteous&display=swap"
-          rel="stylesheet"
-        />
       </Head>
 
-      <Title>
-        WEB SPACE ON THE INTER<s>WEB</s>NET
-      </Title>
+      <PageTitle>Get Outer My Space</PageTitle>
 
-      <About>{BIO}</About>
+      <Welcome>{WELCOME_TEXT}</Welcome>
 
-      <RenderPageLink href="/render">Do the thing</RenderPageLink>
+      <a href="/render">
+        <RenderButton>Hello. World:</RenderButton>
+      </a>
+
+      <Inspiration>
+        <h1>Inspiration</h1>
+        <br />
+        {INSPO_TEXT}{' '}
+        <a target="_blank" href="https://github.com/smithky3/space-thing">
+          here
+        </a>
+        .
+      </Inspiration>
+
+      <ToDo>
+        <h1>To Do:</h1>
+        <ul>
+          {TODO_LIST.map((todo) => (
+            <>
+              <br />
+              <li>{todo}</li>
+            </>
+          ))}
+        </ul>
+      </ToDo>
     </>
   );
 };

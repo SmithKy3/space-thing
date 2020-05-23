@@ -2,6 +2,8 @@ import { getRandomNumber } from '~/common';
 import Vec3 from './engine/Vec3';
 import { SystemData } from './entities/SolarSystem';
 import { StarData } from './entities/Star';
+import SphericalCoordinate from './engine/SphericalCoordinate';
+import { isMainThread } from 'worker_threads';
 
 export function* orbitalRadiusGenerator(
   min: number,
@@ -16,26 +18,28 @@ export function* orbitalRadiusGenerator(
   }
 }
 
+// Return the data needed to create a single system containing one star and one satellite at the center of the page
 export const getInitialSystemData = (): SystemData => {
   const { clientWidth, clientHeight } = document.body;
   const pageCenter = new Vec3(clientWidth / 2, clientHeight / 2, 0);
   const starRadius = Math.min(clientWidth, clientHeight) / 10;
+  let orbitAxis = new SphericalCoordinate(1, Math.PI / 2, Math.PI / 2);
 
   const starData: StarData = {
     radius: starRadius,
     velocity: 0,
     orbitalRadius: 0,
     orbitCenter: pageCenter,
-    orbitAxis: new Vec3(0, 1, 0),
+    orbitAxis,
   };
 
   const orbitalRadius = Math.min(starRadius * 5, clientWidth / 2);
-  const orbitAxis = new Vec3(0, 10, -2);
+  orbitAxis = orbitAxis.clone();
 
   const satData = [
     {
       radius: getRandomNumber(starRadius / 8, starRadius / 4),
-      velocity: getRandomNumber(-2, 2),
+      velocity: 1,
       orbitalRadius,
       orbitAxis,
     },
@@ -43,20 +47,3 @@ export const getInitialSystemData = (): SystemData => {
 
   return { starData, satData };
 };
-
-/*
-  const satelliteRadii = orbitalRadiusGenerator(starRadius, starRadius * 3);
-  const satellitesData: IInitialSatelliteData[] = [];
-  const orbitAxis = new Vec3(0, 10, -2);
-
-  for (let i = Math.round(getRandomNumber(0, 5)); i > 0; i--) {
-    const satDatum = {
-      radius: getRandomNumber(starRadius / 8, starRadius / 4),
-      velocity: getRandomNumber(-2, 2),
-      orbitalRadius: satelliteRadii.next().value,
-      orbitAxis,
-    };
-
-    satellitesData.push(satDatum);
-  }
-*/
